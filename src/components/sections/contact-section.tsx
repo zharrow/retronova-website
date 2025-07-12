@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -25,6 +25,7 @@ type FormData = z.infer<typeof formSchema>;
 export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -37,22 +38,42 @@ export function ContactSection() {
     },
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = useCallback(async (data: FormData) => {
     setIsSubmitting(true);
     
-    // Simulation d'envoi
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log('Form data:', data);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      form.reset();
-    }, 3000);
-  };
+    try {
+      // Simulation d'envoi
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      console.log('Form data:', data);
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      
+      // Cleanup du timeout précédent s'il existe
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      
+      // Reset form après 3 secondes avec cleanup
+      timeoutRef.current = setTimeout(() => {
+        setIsSubmitted(false);
+        form.reset();
+        timeoutRef.current = null;
+      }, 3000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setIsSubmitting(false);
+    }
+  }, [form]);
+
+  // Cleanup du timeout au démontage
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section id="contact" className="min-h-screen py-20 relative overflow-hidden">
@@ -65,7 +86,7 @@ export function ContactSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
         >
           <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Prêt à franchir le portail ?
@@ -81,7 +102,7 @@ export function ContactSection() {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
           >
             <Card className="glassmorphism">
               <CardHeader>
@@ -105,6 +126,7 @@ export function ContactSection() {
                                   placeholder="Votre nom"
                                   className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 interactive"
                                   {...field}
+                                  disabled={isSubmitting}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -124,6 +146,7 @@ export function ContactSection() {
                                   placeholder="votre.email@example.com"
                                   className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 interactive"
                                   {...field}
+                                  disabled={isSubmitting}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -144,6 +167,7 @@ export function ContactSection() {
                                 placeholder="+33 6 12 34 56 78"
                                 className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 interactive"
                                 {...field}
+                                disabled={isSubmitting}
                               />
                             </FormControl>
                             <FormMessage />
@@ -162,6 +186,7 @@ export function ContactSection() {
                                 placeholder="Décrivez votre projet arcade..."
                                 className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 min-h-[120px] interactive"
                                 {...field}
+                                disabled={isSubmitting}
                               />
                             </FormControl>
                             <FormMessage />
@@ -170,8 +195,8 @@ export function ContactSection() {
                       />
 
                       <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                        whileHover={isSubmitting ? {} : { scale: 1.02 }}
+                        whileTap={isSubmitting ? {} : { scale: 0.98 }}
                       >
                         <Button 
                           type="submit" 
@@ -182,7 +207,12 @@ export function ContactSection() {
                           {isSubmitting ? (
                             <motion.div
                               animate={{ rotate: 360 }}
-                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                              transition={{ 
+                                duration: 1, 
+                                repeat: Infinity, 
+                                ease: "linear",
+                                repeatType: "loop"
+                              }}
                               className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                             />
                           ) : (
@@ -204,7 +234,7 @@ export function ContactSection() {
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ delay: 0.2, type: "spring" }}
+                      transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
                     >
                       <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                     </motion.div>

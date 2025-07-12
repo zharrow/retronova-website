@@ -16,8 +16,7 @@ export function SectionTransition({
 }: SectionTransitionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: triggerOffset
+    target: ref
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);

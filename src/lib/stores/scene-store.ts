@@ -37,15 +37,46 @@ export const useSceneStore = create<SceneState>()(
       cameraPosition: [0, 0, 5],
       autoRotate: true,
       
-      setActiveProduct: (product) => set({ activeProduct: product }),
+      setActiveProduct: (product) => {
+        const current = get().activeProduct;
+        if (current !== product) {
+          set({ activeProduct: product });
+        }
+      },
+      
       addLoadedModel: (url, model) => 
         set(state => ({ 
           loadedModels: { ...state.loadedModels, [url]: model } 
         })),
-      setIsLoading: (loading) => set({ isLoading: loading }),
-      setViewMode: (mode) => set({ viewMode: mode }),
-      setCameraPosition: (position) => set({ cameraPosition: position }),
-      setAutoRotate: (rotate) => set({ autoRotate: rotate }),
+        
+      setIsLoading: (loading) => {
+        const current = get().isLoading;
+        if (current !== loading) {
+          set({ isLoading: loading });
+        }
+      },
+      
+      setViewMode: (mode) => {
+        const current = get().viewMode;
+        if (current !== mode) {
+          set({ viewMode: mode });
+        }
+      },
+      
+      setCameraPosition: (position) => {
+        const current = get().cameraPosition;
+        // Éviter les mises à jour si la position n'a pas vraiment changé
+        if (current[0] !== position[0] || current[1] !== position[1] || current[2] !== position[2]) {
+          set({ cameraPosition: position });
+        }
+      },
+      
+      setAutoRotate: (rotate) => {
+        const current = get().autoRotate;
+        if (current !== rotate) {
+          set({ autoRotate: rotate });
+        }
+      },
     }),
     { name: 'scene-store' }
   )

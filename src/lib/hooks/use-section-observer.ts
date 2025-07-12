@@ -1,29 +1,40 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useScrollStore } from '@/lib/stores/scroll-store';
 
 export const useSectionObserver = () => {
-  const { sections, setActiveSection } = useScrollStore();
+  const sections = useScrollStore(state => state.sections);
+  const setActiveSection = useScrollStore(state => state.setActiveSection);
+
+  // Mémoriser le callback pour éviter les re-créations
+  const handleIntersection = useCallback((index: number) => {
+    setActiveSection(index);
+  }, [setActiveSection]);
 
   useEffect(() => {
-    const observers = sections.map((sectionId, index) => {
+    const observers: (IntersectionObserver | null)[] = [];
+
+    sections.forEach((sectionId, index) => {
       const element = document.getElementById(sectionId);
-      if (!element) return null;
+      if (!element) {
+        observers.push(null);
+        return;
+      }
 
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            setActiveSection(index);
+            handleIntersection(index);
           }
         },
         { threshold: 0.5 }
       );
 
       observer.observe(element);
-      return observer;
+      observers.push(observer);
     });
 
     return () => {
       observers.forEach(observer => observer?.disconnect());
     };
-  }, [sections, setActiveSection]);
+  }, [sections, handleIntersection]); // sections et handleIntersection mémorisé
 };
