@@ -3,7 +3,7 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useEffect, useState } from 'react';
 import { Environment, ContactShadows } from '@react-three/drei';
-import { ArcadeMachine } from '@/components/3d/arcade-machine';
+import { MinimalArcadeMachine } from '@/components/3d/minimal-arcade-machine';
 import { useScrollStore } from '@/lib/stores/scroll-store';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -64,7 +64,7 @@ export function ArcadeSceneCentral() {
           <Environment preset="night" />
 
           {/* Borne d'arcade */}
-          <ArcadeMachine />
+          <MinimalArcadeMachine />
 
           {/* Ombres */}
           <ContactShadows 
