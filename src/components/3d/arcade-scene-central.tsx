@@ -14,9 +14,14 @@ export function ArcadeSceneCentral() {
   const [opacity, setOpacity] = useState(0.8);
 
   useEffect(() => {
-    // Rotation basée sur le scroll
-    const scrollProgress = scrollY / 2000;
-    setRotation(scrollProgress * 360);
+    // Rotation sophistiquée basée sur la section active et le scroll
+    const sectionRotations = [0, 25, -15, 45, 0]; // Rotations pour chaque section
+    const baseRotation = sectionRotations[activeSection] || 0;
+    
+    // Micro-rotation basée sur le scroll pour plus de dynamisme
+    const scrollMicroRotation = Math.sin(scrollY * 0.001) * 5;
+    
+    setRotation(baseRotation + scrollMicroRotation);
     
     // Fade out sur la dernière section (contact)
     if (activeSection === 4) {
@@ -64,7 +69,7 @@ export function ArcadeSceneCentral() {
           <Environment preset="night" />
 
           {/* Borne d'arcade */}
-          <MinimalArcadeMachine />
+          <MinimalArcadeMachine rotation={rotation} />
 
           {/* Ombres */}
           <ContactShadows 

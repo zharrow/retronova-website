@@ -24,11 +24,16 @@ export function MinimalArcadeMachine({ rotation = 0 }: MinimalArcadeMachineProps
   // Animation subtile
   useFrame((state) => {
     if (groupRef.current) {
-      // Rotation basée sur la prop
-      groupRef.current.rotation.y = rotation * Math.PI / 180;
+      // Rotation douce vers la cible avec lerp
+      const targetRotation = rotation * Math.PI / 180;
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(
+        groupRef.current.rotation.y,
+        targetRotation,
+        0.1 // Facteur de lerp pour une animation fluide
+      );
       
-      // Animation idle subtile
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
+      // Animation idle subtile (réduite pour ne pas interférer)
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.02; // Réduit de 0.05 à 0.02
     }
     
     // Glow effect subtil sur l'écran

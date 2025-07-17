@@ -11,7 +11,7 @@ export function FluidCursor() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  const springConfig = { damping: 20, stiffness: 300 };
+  const springConfig = { damping: 25, stiffness: 700 }; // Augmenté de 300 à 700 pour plus de réactivité
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
@@ -37,23 +37,27 @@ export function FluidCursor() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-    };
-
-    const handleMouseEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const interactiveSelectors = [
-        'a', 'button', '.btn', '.interactive', 
-        '[role="button"]', 'input', 'textarea', 
-        '.nav-dot', '.card-minimal', '.feature-item'
-      ];
       
-      if (interactiveSelectors.some(selector => target.closest(selector))) {
-        setIsHovering(true);
+      // Vérifier si on survole un élément interactif
+      const target = e.target as HTMLElement;
+      if (target && typeof target.closest === 'function') {
+        const interactiveSelectors = [
+          'a', 'button', '.btn', '.btn-minimal', '.interactive', 
+          '[role="button"]', 'input', 'textarea', 'select',
+          '.nav-dot', '.card-minimal', '.feature-item',
+          '[data-slot="button"]' // Pour les boutons shadcn
+        ];
+        
+        const isInteractive = interactiveSelectors.some(selector => {
+          try {
+            return target.closest(selector);
+          } catch (error) {
+            return false;
+          }
+        });
+        
+        setIsHovering(isInteractive);
       }
-    };
-
-    const handleMouseLeave = () => {
-      setIsHovering(false);
     };
 
     const handleMouseDown = () => setIsClicking(true);
@@ -64,15 +68,11 @@ export function FluidCursor() {
     mouseY.set(window.innerHeight / 2);
 
     document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseenter', handleMouseEnter, { capture: true });
-    document.addEventListener('mouseleave', handleMouseLeave, { capture: true });
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
     };

@@ -44,8 +44,8 @@
   --space-16: 8rem;
   
   /* Animations */
-  --transition-base: 200ms ease;
-  --transition-slow: 300ms ease;
+  --transition-base: 150ms ease; /* Réduit de 200ms */
+  --transition-slow: 250ms ease; /* Réduit de 300ms */
 }
 
 /* ===== RESET & BASE ===== */
@@ -251,7 +251,7 @@ p {
   height: 30px;
   pointer-events: none;
   z-index: 10000;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease; /* Réduit de 0.3s */
   mix-blend-mode: normal;
 }
 
@@ -265,7 +265,7 @@ p {
   border-radius: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-  transition: all 0.2s ease;
+  transition: all 0.1s ease; /* Réduit de 0.2s à 0.1s */
 }
 
 .cursor-fluid {
@@ -277,7 +277,7 @@ p {
   background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 60%);
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(1);
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: transform 0.15s ease, background 0.15s ease; /* Réduit de 0.3s à 0.15s */
   filter: blur(8px);
 }
 
@@ -290,7 +290,7 @@ p {
   border: 1px solid rgba(139, 92, 246, 0.3);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: all 0.3s ease;
+  transition: all 0.15s ease; /* Réduit de 0.3s à 0.15s */
 }
 
 /* États du curseur */

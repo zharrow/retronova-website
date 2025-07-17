@@ -17,29 +17,36 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     if (lenisRef.current || typeof window === 'undefined') return;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.6, // Réduit de 1.2 à 0.6 pour un scroll plus réactif
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       smoothTouch: false,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.2, // Augmenté pour plus de réactivité
       touchMultiplier: 2,
       infinite: false,
     });
 
     lenisRef.current = lenis;
 
-    // Scroll handler avec debounce
+    // Handler pour le scroll avec debounce
     let scrollTimeout: NodeJS.Timeout;
+    let lastScroll = 0;
     
     lenis.on('scroll', ({ scroll, velocity }: any) => {
-      setScrollY(scroll);
+      // Throttle les updates pour de meilleures performances
+      const scrollDiff = Math.abs(scroll - lastScroll);
+      if (scrollDiff > 1) {
+        lastScroll = scroll;
+        setScrollY(scroll);
+      }
       
+      // Debounce pour isScrolling
       clearTimeout(scrollTimeout);
       setIsScrolling(true);
       
       scrollTimeout = setTimeout(() => {
         setIsScrolling(false);
-      }, 150);
+      }, 100); // Réduit de 150 à 100ms
     });
 
     // Animation frame
