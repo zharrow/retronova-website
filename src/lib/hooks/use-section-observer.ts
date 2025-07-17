@@ -13,8 +13,9 @@ export const useSectionObserver = () => {
   useEffect(() => {
     const observers: (IntersectionObserver | null)[] = [];
 
-    sections.forEach((sectionId, index) => {
-      const element = document.getElementById(sectionId);
+    sections.forEach((sectionName, index) => {
+      // Chercher par data-section au lieu de id
+      const element = document.querySelector(`[data-section="${sectionName}"]`);
       if (!element) {
         observers.push(null);
         return;
@@ -36,5 +37,5 @@ export const useSectionObserver = () => {
     return () => {
       observers.forEach(observer => observer?.disconnect());
     };
-  }, [sections, handleIntersection]); // sections et handleIntersection mémorisé
+  }, [sections, handleIntersection]);
 };
