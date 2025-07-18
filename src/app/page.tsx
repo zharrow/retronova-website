@@ -194,7 +194,7 @@ function ParticulierSection({ onSignupClick }: { onSignupClick: () => void }) {
     {
       icon: <Heart className="h-6 w-6" />,
       title: "Nostalgie garantie",
-      description: "Revivez vos meilleurs souvenirs d&apos;arcade"
+      description: "Revivez vos meilleurs souvenirs d'arcade"
     },
     {
       icon: <Settings className="h-6 w-6" />,
@@ -313,12 +313,12 @@ function ProfessionnelSection() {
     {
       icon: <Building2 className="h-6 w-6" />,
       title: "Hôtels & Résidences",
-      description: "Enrichissez l&apos;expérience client avec un espace détente unique"
+      description: "Enrichissez l'expérience client avec un espace détente unique"
     },
     {
       icon: <Target className="h-6 w-6" />,
       title: "Centres de Loisirs",
-      description: "Complétez votre offre avec l&apos;arcade nouvelle génération"
+      description: "Complétez votre offre avec l'arcade nouvelle génération"
     }
   ];
 
@@ -354,7 +354,7 @@ function ProfessionnelSection() {
                   <Clock className="h-6 w-6 text-blue-600" />
                   <div>
                     <span className="font-medium text-gray-900">Temps de retour</span>
-                    <p className="text-sm text-gray-600">8-12 mois selon l&apos;activité</p>
+                    <p className="text-sm text-gray-600">8-12 mois selon l'activité</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg border border-blue-100">
@@ -524,12 +524,12 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
       icon: <ShoppingCart className="h-6 w-6" />,
       popular: true,
       features: [
-        'Borne d&apos;arcade complète',
-        'Installation incluse',
-        'Formation utilisateur',
-        'Garantie 3 ans',
-        'Support à vie',
-        'Mises à jour gratuites'
+        "Borne d'arcade complète",
+        "Installation incluse",
+        "Formation utilisateur",
+        "Garantie 3 ans",
+        "Support à vie",
+        "Mises à jour gratuites"
       ]
     },
     {
@@ -540,12 +540,12 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
       priceNumber: 149,
       icon: <Calendar className="h-6 w-6" />,
       features: [
-        'Borne d&apos;arcade complète',
-        'Installation incluse',
-        'Maintenance comprise',
-        'Mises à jour automatiques',
-        'Support technique',
-        'Échange possible'
+        "Borne d'arcade complète",
+        "Installation incluse",
+        "Maintenance comprise",
+        "Mises à jour automatiques",
+        "Support technique",
+        "Échange possible"
       ]
     }
   ];
@@ -662,7 +662,7 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         {service.features.map((feature, idx) => (
                           <li key={idx} className="flex items-center text-sm">
                             <CheckCircle className="w-4 h-4 text-green-600 mr-2 shrink-0" />
-                            <span dangerouslySetInnerHTML={{ __html: feature }} />
+                            {feature}
                           </li>
                         ))}
                       </ul>
@@ -833,7 +833,7 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                 <ul className="text-sm text-gray-600 space-y-1">
                   <li>• Confirmation par email sous 2h</li>
                   <li>• Prise de contact dans les 24h</li>
-                  <li>• Planification de l&apos;installation</li>
+                  <li>• Planification de l'installation</li>
                   <li>• Livraison et formation utilisateur</li>
                 </ul>
               </div>
@@ -907,7 +907,7 @@ export default function HomePage() {
       title: "Location",
       description: "Location flexible de 1 mois à 2 ans",
       price: "À partir de 149€/mois",
-      features: ["Maintenance incluse", "Catalogue évolutif", "Flexible", "Pas d&apos;investissement"],
+      features: ["Maintenance incluse", "Catalogue évolutif", "Flexible", "Pas d'investissement"],
       badge: "Flexible"
     },
     {
@@ -924,7 +924,7 @@ export default function HomePage() {
     {
       name: "Marc D.",
       role: "Propriétaire de bar",
-      content: "Nos clients adorent ! Le chiffre d&apos;affaires a augmenté de 30% depuis l&apos;installation.",
+      content: "Nos clients adorent ! Le chiffre d'affaires a augmenté de 30% depuis l'installation.",
       rating: 5
     },
     {
@@ -1169,7 +1169,7 @@ export default function HomePage() {
                     {option.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center text-sm">
                         <CheckCircle className="w-4 h-4 text-green-600 mr-3 shrink-0" />
-                        <span className="text-gray-700" dangerouslySetInnerHTML={{ __html: feature }} />
+                        <span className="text-gray-700">{feature}</span>
                       </li>
                     ))}
                   </ul>
