@@ -354,7 +354,7 @@ function ProfessionnelSection() {
                   <Clock className="h-6 w-6 text-blue-600" />
                   <div>
                     <span className="font-medium text-gray-900">Temps de retour</span>
-                    <p className="text-sm text-gray-600">8-12 mois selon l'activité</p>
+                    <p className="text-sm text-gray-600">8-12 mois selon l&apos;activité</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg border border-blue-100">
@@ -833,7 +833,7 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                 <ul className="text-sm text-gray-600 space-y-1">
                   <li>• Confirmation par email sous 2h</li>
                   <li>• Prise de contact dans les 24h</li>
-                  <li>• Planification de l'installation</li>
+                  <li>• Planification de l&apos;installation</li>
                   <li>• Livraison et formation utilisateur</li>
                 </ul>
               </div>
