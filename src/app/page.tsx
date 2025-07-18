@@ -1276,23 +1276,4 @@ export default function HomePage() {
       />
     </div>
   );
-}ame="hover:text-primary transition-colors">Installation</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Maintenance</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <Separator className="my-8" />
-          
-          <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground">
-            <p>&copy; 2024 Arcade Connect. Tous droits réservés.</p>
-            <div className="flex space-x-4 mt-4 sm:mt-0">
-              <a href="#" className="hover:text-primary transition-colors">Politique de confidentialité</a>
-              <a href="#" className="hover:text-primary transition-colors">Conditions d'utilisation</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
 }
