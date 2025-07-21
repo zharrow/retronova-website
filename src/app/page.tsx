@@ -256,10 +256,11 @@ function ParticulierSection({ onSignupClick }: { onSignupClick: () => void }) {
                 </div>
                 <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                   <div>
-                    <span className="font-medium text-gray-900">Location longue durée</span>
-                    <p className="text-sm text-gray-600">Engagement 12 mois</p>
+                    <span className="font-medium text-gray-900">Événementiel</span>
+                    <p className="text-sm text-gray-600">Avec possibilité d'animation</p>
                   </div>
-                  <span className="text-lg font-bold text-gray-900">149€/mois</span>
+                  <p className="text-sm text-gray-600">À partir de :</p>
+                  <span className="text-lg font-bold text-gray-900">149€/Jour</span>
                 </div>
               </div>
               <Button 
@@ -902,8 +903,8 @@ export default function HomePage() {
     {
       icon: <Calendar className="h-6 w-6" />,
       title: "Location",
-      description: "Location flexible de 1 mois à 2 ans",
-      price: "À partir de 149€/mois",
+      description: "Location flexible de 12 mois minimum",
+      price: "À partir de 299€/mois",
       features: ["Maintenance incluse", "Catalogue évolutif", "Flexible", "Pas d'investissement"],
       badge: "Flexible"
     },
@@ -911,7 +912,7 @@ export default function HomePage() {
       icon: <PartyPopper className="h-6 w-6" />,
       title: "Événement",
       description: "Location ponctuelle avec livraison",
-      price: "À partir de 199€/jour",
+      price: "À partir de 149€/jour",
       features: ["Livraison incluse", "Installation rapide", "Animation possible", "Support événement"],
       badge: "Événement"
     }
