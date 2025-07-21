@@ -1090,7 +1090,7 @@ export default function HomePage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               <Card className="text-center hover:shadow-lg transition-all border-gray-200">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-blue-200">
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-blue-200">
                     <Settings className="h-6 w-6 text-gray-900" />
                   </div>
                   <CardTitle className="text-lg text-gray-900">Personnalisable</CardTitle>
@@ -1099,7 +1099,7 @@ export default function HomePage() {
                   <p className="text-sm text-gray-600 mb-3">
                     Design et contenu adaptés à votre établissement
                   </p>
-                  <div className="text-xs text-gray-900 bg-blue-50 px-2 py-1 rounded border border-blue-200">
+                  <div className="text-xs text-gray-900 bg-gray-50 px-2 py-1 rounded border border-gray-200">
                     Engagement 12 mois
                   </div>
                 </CardContent>
@@ -1107,7 +1107,7 @@ export default function HomePage() {
 
               <Card className="text-center hover:shadow-lg transition-all border-gray-200">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-purple-200">
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-purple-200">
                     <Shield className="h-6 w-6 text-gray-900" />
                   </div>
                   <CardTitle className="text-lg text-gray-900">Sous validation</CardTitle>
@@ -1121,7 +1121,7 @@ export default function HomePage() {
 
               <Card className="text-center hover:shadow-lg transition-all border-gray-200">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-orange-200">
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-orange-200">
                     <PartyPopper className="h-6 w-6 text-gray-900" />
                   </div>
                   <CardTitle className="text-lg text-gray-900">Animation incluse</CardTitle>
@@ -1130,7 +1130,7 @@ export default function HomePage() {
                   <p className="text-sm text-gray-600 mb-3">
                     Animations événementielles possibles
                   </p>
-                  <div className="text-xs text-gray-900 bg-orange-50 px-2 py-1 rounded border border-orange-200">
+                  <div className="text-xs text-gray-900 bg-gray-50 px-2 py-1 rounded border border-gray-200">
                     Jusqu'à 2x/mois
                   </div>
                 </CardContent>
