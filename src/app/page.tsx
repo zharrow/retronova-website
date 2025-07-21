@@ -918,27 +918,6 @@ export default function HomePage() {
     }
   ];
 
-  const testimonials = [
-    {
-      name: "Marc D.",
-      role: "Propriétaire de bar",
-      content: "Nos clients adorent ! Le chiffre d'affaires a augmenté de 30% depuis l'installation.",
-      rating: 5
-    },
-    {
-      name: "Sarah M.",
-      role: "Particulier",
-      content: "Parfait pour les soirées en famille. La qualité est exceptionnelle !",
-      rating: 5
-    },
-    {
-      name: "Thomas L.",
-      role: "Gérant de restaurant",
-      content: "Installation rapide, interface intuitive. Je recommande vivement !",
-      rating: 5
-    }
-  ];
-
   const handleSignupClick = () => {
     setSignupModalOpen(true);
     setMobileMenuOpen(false);
@@ -1093,38 +1072,140 @@ export default function HomePage() {
       <ParticulierSection onSignupClick={handleSignupClick} />
       <ProfessionnelSection />
 
-      {/* Testimonials */}
+      {/* Offre Mise à Disposition Gratuite */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900">
-              Ce que disent nos clients
+              Mise à disposition 100% gratuite
             </h2>
-            <p className="text-xl text-gray-600">
-              Plus de 500 clients nous font confiance
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Découvrez notre offre unique de mise à disposition gratuite de bornes d'arcade pour les professionnels
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow border-gray-200">
+          <div className="max-w-6xl mx-auto">
+
+            {/* Détails de l'offre */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              <Card className="text-center hover:shadow-lg transition-all border-gray-200">
                 <CardHeader>
-                  <div className="flex items-center space-x-1 mb-3">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
+                  <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-blue-200">
+                    <Settings className="h-6 w-6 text-gray-900" />
                   </div>
-                  <CardTitle className="text-lg text-gray-900">{testimonial.name}</CardTitle>
-                  <CardDescription className="text-gray-600">{testimonial.role}</CardDescription>
+                  <CardTitle className="text-lg text-gray-900">Personnalisable</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 italic">&quot;{testimonial.content}&quot;</p>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Design et contenu adaptés à votre établissement
+                  </p>
+                  <div className="text-xs text-gray-900 bg-blue-50 px-2 py-1 rounded border border-blue-200">
+                    Engagement 12 mois
+                  </div>
                 </CardContent>
               </Card>
-            ))}
+
+              <Card className="text-center hover:shadow-lg transition-all border-gray-200">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-purple-200">
+                    <Shield className="h-6 w-6 text-gray-900" />
+                  </div>
+                  <CardTitle className="text-lg text-gray-900">Sous validation</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Étude personnalisée de votre projet et validation selon critères
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-all border-gray-200">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-orange-200">
+                    <PartyPopper className="h-6 w-6 text-gray-900" />
+                  </div>
+                  <CardTitle className="text-lg text-gray-900">Animation incluse</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Animations événementielles possibles
+                  </p>
+                  <div className="text-xs text-gray-900 bg-orange-50 px-2 py-1 rounded border border-orange-200">
+                    Jusqu'à 2x/mois
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-all border-gray-200">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-gray-200">
+                    <Headphones className="h-6 w-6 text-gray-600" />
+                  </div>
+                  <CardTitle className="text-lg text-gray-900">Support complet</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Installation, formation, maintenance et assistance technique
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Processus de validation */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+              <h4 className="text-2xl font-semibold text-center mb-8 text-gray-900">
+                Comment bénéficier de cette offre ?
+              </h4>
+              <div className="grid md:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                    1
+                  </div>
+                  <h5 className="font-semibold mb-2 text-gray-900">Candidature</h5>
+                  <p className="text-sm text-gray-600">
+                    Soumettez votre demande avec les détails de votre établissement
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                    2
+                  </div>
+                  <h5 className="font-semibold mb-2 text-gray-900">Évaluation</h5>
+                  <p className="text-sm text-gray-600">
+                    Analyse de votre projet selon nos critères de sélection
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                    3
+                  </div>
+                  <h5 className="font-semibold mb-2 text-gray-900">Validation</h5>
+                  <p className="text-sm text-gray-600">
+                    Réponse sous 5 jours ouvrés avec les conditions
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                    4
+                  </div>
+                  <h5 className="font-semibold mb-2 text-gray-900">Installation</h5>
+                  <p className="text-sm text-gray-600">
+                    Installation et formation dans votre établissement
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-center mt-8">
+                <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white">
+                  Candidater à l'offre gratuite
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-white">
