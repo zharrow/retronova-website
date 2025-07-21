@@ -55,7 +55,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
               <Gamepad2 className="h-6 w-6 text-white" />
             </div>
             <span className="text-2xl font-bold text-gray-900">
-              Arcade Connect
+              Retronova
             </span>
           </div>
           
@@ -80,7 +80,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
               onClick={onSignupClick}
               className="bg-gray-900 hover:bg-gray-800 text-white"
             >
-              Commencer
+              Devis gratuit
             </Button>
           </nav>
 
@@ -116,7 +116,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
                 onClick={onSignupClick}
                 className="w-full mt-4 bg-gray-900 hover:bg-gray-800 text-white"
               >
-                Commencer
+                Devis gratuit
               </Button>
             </nav>
           </div>
@@ -129,9 +129,9 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
 // Hero Section Component
 function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
   const stats = [
-    { number: "2000+", label: "Jeux disponibles" },
-    { number: "500+", label: "Clients satisfaits" },
-    { number: "98%", label: "Taux de satisfaction" },
+    { number: "Jeux originaux", label: "Développé par nos équipes" },
+    { number: "Robuste & cutomisable", label: "Design personnalisable" },
+    { number: "100% Francais", label: "Entièrement conçu et hébergé en France" },
     { number: "24h/24", label: "Support technique" }
   ];
 
@@ -140,9 +140,6 @@ function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center max-w-5xl mx-auto">
-          <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm bg-gray-100 text-gray-700 border-gray-200">
-            🎮 Révolution Arcade - Nouvelle Génération
-          </Badge>
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-gray-900">
             L&apos;arcade connectée
             <span className="block text-gray-700">
@@ -159,11 +156,11 @@ function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
               className="text-lg px-8 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={onSignupClick}
             >
-              Commencer maintenant
+              Demander mon devis gratuit
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button variant="outline" size="lg" className="text-lg px-8 border-gray-300 hover:bg-gray-50">
-              Demander une démo
+              Demander à être contacter
               <Phone className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -317,8 +314,8 @@ function ProfessionnelSection() {
     },
     {
       icon: <Target className="h-6 w-6" />,
-      title: "Centres de Loisirs",
-      description: "Complétez votre offre avec l'arcade nouvelle génération"
+      title: "Espaces de travail & détente",
+      description: "Installez nos bornes dans vos salles de repos, zones de coworking ou espaces collaboratifs pour offrir une pause ludique et conviviale."
     }
   ];
 
@@ -346,8 +343,8 @@ function ProfessionnelSection() {
                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg border border-blue-100">
                   <Target className="h-6 w-6 text-blue-600" />
                   <div>
-                    <span className="font-medium text-gray-900">ROI moyen</span>
-                    <p className="text-sm text-gray-600">+30% de CA en 6 mois</p>
+                    <span className="font-medium text-gray-900">2 offres</span>
+                    <p className="text-sm text-gray-600">mise à disposition ou location longue durée</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg border border-blue-100">
@@ -883,7 +880,7 @@ export default function HomePage() {
     },
     {
       icon: <Gamepad2 className="h-8 w-8" />,
-      title: "2000+ Jeux",
+      title: "+2 jeux  par mois ",
       description: "Catalogue évolutif mis à jour régulièrement avec les dernières sorties"
     },
     {
@@ -1230,8 +1227,8 @@ export default function HomePage() {
                   <CardTitle className="text-gray-900">Téléphone</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 mb-3">Du lundi au vendredi<br />9h - 18h</p>
-                  <p className="font-semibold text-gray-900">01 23 45 67 89</p>
+                  <p className="text-gray-600 mb-3">Du lundi au vendredi<br />9h - 00h</p>
+                  <p className="font-semibold text-gray-900">07 44 72 09 51</p>
                 </CardContent>
               </Card>
 
@@ -1244,7 +1241,7 @@ export default function HomePage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 mb-3">Réponse sous 2h<br />en heures ouvrées</p>
-                  <p className="font-semibold text-gray-900">contact@arcade-connect.fr</p>
+                  <p className="font-semibold text-gray-900">contact@retronova.fr</p>
                 </CardContent>
               </Card>
 
@@ -1253,12 +1250,12 @@ export default function HomePage() {
                   <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <MapPin className="h-6 w-6 text-gray-700" />
                   </div>
-                  <CardTitle className="text-gray-900">Showroom</CardTitle>
+                  <CardTitle className="text-gray-900">Trouver une borne</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 mb-3">Sur rendez-vous<br />Paris & Lyon</p>
+                  <p className="text-gray-600 mb-3">Grâce à notre carte interactive, trouvez nos bornes pour découvrir le produit.</p>
                   <Button variant="outline" size="sm" className="border-gray-300 hover:bg-gray-50">
-                    Prendre RDV
+                    ouvrir la carte
                   </Button>
                 </CardContent>
               </Card>
