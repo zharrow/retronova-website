@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         res.status(200).json({ success: true });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Erreur lors de l’envoi de l’e-mail:', error);
         res.status(500).json({ error: 'Échec de l’envoi de l’e-mail' });
     }
