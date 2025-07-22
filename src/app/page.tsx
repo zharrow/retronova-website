@@ -500,6 +500,8 @@ interface ServiceOption {
 
 function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [currentStep, setCurrentStep] = useState<Step>('service');
+  const [userType, setUserType] = useState<UserType | null>(null);
+  type UserType = 'particulier' | 'professionnel';
   const [selectedService, setSelectedService] = useState<ServiceOption | null>(null);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -552,12 +554,11 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     { id: 'service', title: 'Service', completed: currentStep !== 'service' },
     { id: 'info', title: 'Informations', completed: ['address', 'payment', 'confirmation'].includes(currentStep) },
     { id: 'address', title: 'Adresse', completed: ['payment', 'confirmation'].includes(currentStep) },
-    { id: 'payment', title: 'Paiement', completed: currentStep === 'confirmation' },
     { id: 'confirmation', title: 'Confirmation', completed: false }
   ];
 
   const handleNext = () => {
-    const stepOrder: Step[] = ['service', 'info', 'address', 'payment', 'confirmation'];
+    const stepOrder: Step[] = ['service', 'info', 'address', 'confirmation'];
     const currentIndex = stepOrder.indexOf(currentStep);
     if (currentIndex < stepOrder.length - 1) {
       setCurrentStep(stepOrder[currentIndex + 1]);
@@ -565,7 +566,7 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   };
 
   const handleBack = () => {
-    const stepOrder: Step[] = ['service', 'info', 'address', 'payment', 'confirmation'];
+    const stepOrder: Step[] = ['service', 'info', 'address', 'confirmation'];
     const currentIndex = stepOrder.indexOf(currentStep);
     if (currentIndex > 0) {
       setCurrentStep(stepOrder[currentIndex - 1]);
@@ -629,93 +630,122 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         <div className="p-6">
           {/* Step 1: Service Selection */}
           {currentStep === 'service' && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-gray-900">Choisissez votre formule</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                {services.map((service) => (
-                  <Card 
-                    key={service.id}
-                    className={`cursor-pointer transition-all hover:shadow-lg ${
-                      selectedService?.id === service.id ? 'ring-2 ring-gray-900 shadow-lg' : 'hover:shadow-md'
-                    }`}
-                    onClick={() => setSelectedService(service)}
+              <div>
+                <h3 className="text-xl font-semibold mb-6 text-gray-900">Êtes-vous un professionnel ou un particulier ?</h3>
+                <div className="flex gap-6">
+                  <Button
+                      variant={userType === 'particulier' ? 'default' : 'outline'}
+                      onClick={() => setUserType('particulier')}
                   >
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                          {service.icon}
-                        </div>
-                        {service.popular && (
-                          <Badge className="bg-gray-900 text-white">Populaire</Badge>
+                    Particulier
+                  </Button>
+                  <Button
+                      variant={userType === 'professionnel' ? 'default' : 'outline'}
+                      onClick={() => setUserType('professionnel')}
+                  >
+                    Professionnel
+                  </Button>
+                </div>
+
+                {userType && (
+                    <div className="mt-8">
+                      <h4 className="text-lg font-medium mb-4">Choisissez votre offre</h4>
+                      <div className="flex flex-col gap-4">
+                        {userType === 'particulier' && (
+                            <>
+                              <Button
+                                  variant={selectedService?.id === 'achat' ? 'default' : 'outline'}
+                                  onClick={() =>
+                                      setSelectedService({ id: 'achat', title: 'Achat', description: 'Achat d\'une borne', price: '', priceNumber: 0, icon: <ShoppingCart className="h-5 w-5" />, features: [] })
+                                  }
+                              >
+                                Achat
+                              </Button>
+                              <Button
+                                  variant={selectedService?.id === 'evenement' ? 'default' : 'outline'}
+                                  onClick={() =>
+                                      setSelectedService({ id: 'evenement', title: 'Événementiel', description: 'Location pour événement', price: '', priceNumber: 0, icon: <PartyPopper className="h-5 w-5" />, features: [] })
+                                  }
+                              >
+                                Événementiel
+                              </Button>
+                            </>
+                        )}
+                        {userType === 'professionnel' && (
+                            <>
+                              <Button
+                                  variant={selectedService?.id === 'miseadisposition' ? 'default' : 'outline'}
+                                  onClick={() =>
+                                      setSelectedService({ id: 'miseadisposition', title: 'Mise à disposition gratuite', description: 'Offre gratuite pour pros', price: '', priceNumber: 0, icon: <Shield className="h-5 w-5" />, features: [] })
+                                  }
+                              >
+                                Mise à disposition gratuite
+                              </Button>
+                              <Button
+                                  variant={selectedService?.id === 'locationlongue' ? 'default' : 'outline'}
+                                  onClick={() =>
+                                      setSelectedService({ id: 'locationlongue', title: 'Location longue durée', description: 'Location pro', price: '', priceNumber: 0, icon: <Calendar className="h-5 w-5" />, features: [] })
+                                  }
+                              >
+                                Location longue durée
+                              </Button>
+                            </>
                         )}
                       </div>
-                      <CardTitle className="text-xl">{service.title}</CardTitle>
-                      <CardDescription>{service.description}</CardDescription>
-                      <div className="text-3xl font-bold text-gray-900 mt-2">
-                        {service.price}
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-2">
-                        {service.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-center text-sm">
-                            <CheckCircle className="w-4 h-4 text-green-600 mr-2 shrink-0" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                ))}
+                    </div>
+                )}
               </div>
-            </div>
           )}
+
 
           {/* Step 2: Personal Information */}
           {currentStep === 'info' && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-gray-900">Vos informations personnelles</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <Label htmlFor="firstName">Prénom *</Label>
-                  <Input
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={(e) => updateFormData('firstName', e.target.value)}
-                    placeholder="Votre prénom"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="lastName">Nom *</Label>
-                  <Input
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={(e) => updateFormData('lastName', e.target.value)}
-                    placeholder="Votre nom"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="email">Email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => updateFormData('email', e.target.value)}
-                    placeholder="votre@email.com"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="phone">Téléphone *</Label>
-                  <Input
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => updateFormData('phone', e.target.value)}
-                    placeholder="06 12 34 56 78"
-                  />
+              <div>
+                <h3 className="text-xl font-semibold mb-6 text-gray-900">Informations</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {userType === 'professionnel' && (
+                      <>
+                        <div>
+                          <Label htmlFor="companyName">Nom de l’établissement *</Label>
+                          <Input id="companyName" onChange={(e) => updateFormData('companyName', e.target.value)} placeholder="Nom de votre établissement" />
+                        </div>
+                        <div>
+                          <Label htmlFor="activity">Activité de l’entreprise *</Label>
+                          <Input id="activity" onChange={(e) => updateFormData('activity', e.target.value)} placeholder="Ex: Bar, Hôtel..." />
+                        </div>
+                      </>
+                  )}
+                  <div>
+                    <Label htmlFor="firstName">Prénom *</Label>
+                    <Input id="firstName" onChange={(e) => updateFormData('firstName', e.target.value)} />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName">Nom *</Label>
+                    <Input id="lastName" onChange={(e) => updateFormData('lastName', e.target.value)} />
+                  </div>
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input id="email" type="email" onChange={(e) => updateFormData('email', e.target.value)} />
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Téléphone *</Label>
+                    <Input id="phone" onChange={(e) => updateFormData('phone', e.target.value)} />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="city">Ville *</Label>
+                    <Input id="city" onChange={(e) => updateFormData('city', e.target.value)} />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="contactMethod">Préférez-vous être contacté par *</Label>
+                    <select id="contactMethod" onChange={(e) => updateFormData('contactMethod', e.target.value)} className="w-full p-2 border rounded">
+                      <option value="email">Email</option>
+                      <option value="telephone">Téléphone</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
           )}
+
 
           {/* Step 3: Address */}
           {currentStep === 'address' && (
@@ -754,77 +784,16 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               </div>
             </div>
           )}
-
-          {/* Step 4: Payment */}
-          {currentStep === 'payment' && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-gray-900">Méthode de paiement</h3>
-              <div className="space-y-6">
-                {/* Payment Summary */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-semibold mb-2">Récapitulatif de votre commande</h4>
-                  <div className="flex justify-between items-center">
-                    <span>{selectedService?.title}</span>
-                    <span className="font-semibold">{selectedService?.price}</span>
-                  </div>
-                  <div className="flex justify-between items-center mt-2 pt-2 border-t border-gray-200">
-                    <span className="font-semibold">Total</span>
-                    <span className="font-bold text-lg">{selectedService?.price}</span>
-                  </div>
-                </div>
-
-                {/* Payment Options */}
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                    <input
-                      type="radio"
-                      id="card"
-                      name="payment"
-                      value="card"
-                      checked={formData.paymentMethod === 'card'}
-                      onChange={(e) => updateFormData('paymentMethod', e.target.value)}
-                      className="text-gray-900"
-                    />
-                    <CreditCard className="h-5 w-5 text-gray-600" />
-                    <label htmlFor="card" className="flex-1 cursor-pointer">
-                      <div className="font-medium">Carte bancaire</div>
-                      <div className="text-sm text-gray-600">Paiement sécurisé par Stripe</div>
-                    </label>
-                  </div>
-                  
-                  {selectedService?.id === 'rental' && (
-                    <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                      <input
-                        type="radio"
-                        id="sepa"
-                        name="payment"
-                        value="sepa"
-                        checked={formData.paymentMethod === 'sepa'}
-                        onChange={(e) => updateFormData('paymentMethod', e.target.value)}
-                        className="text-gray-900"
-                      />
-                      <div className="h-5 w-5 text-gray-600 flex items-center justify-center font-bold text-xs">€</div>
-                      <label htmlFor="sepa" className="flex-1 cursor-pointer">
-                        <div className="font-medium">Prélèvement SEPA</div>
-                        <div className="text-sm text-gray-600">Pour les abonnements mensuels</div>
-                      </label>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Step 5: Confirmation */}
           {currentStep === 'confirmation' && (
             <div className="text-center py-8">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-900">Inscription terminée !</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-gray-900">Devis terminer !</h3>
               <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                Votre demande a été envoyée avec succès. Vous allez être redirigé vers votre espace client 
-                pour finaliser votre commande et suivre l&apos;installation.
+                Votre demande de devis est prête à être envoyée.
+                Merci pour votre confiance !
               </p>
               <div className="bg-gray-50 rounded-lg p-4 mb-6">
                 <h4 className="font-semibold mb-2">Prochaines étapes :</h4>
@@ -855,7 +824,7 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
             disabled={currentStep === 'service' && !selectedService}
             className="bg-gray-900 hover:bg-gray-800 text-white"
           >
-            {currentStep === 'confirmation' ? 'Accéder à mon espace' : 'Continuer'}
+            {currentStep === 'confirmation' ? 'Enovoyer ma demande' : 'Continuer'}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
