@@ -546,11 +546,25 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     }
   };
 
-  const handleFinish = () => {
-    // Redirection vers le backoffice RetroNova
-    window.open('https://www.retronova.fr', '_blank');
-    onClose();
+  const handleFinish = async () => {
+    try {
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'devis',
+          userType,
+          formData,
+        }),
+      });
+      alert("Demande envoyée !");
+      onClose();
+    } catch (err) {
+      alert("Erreur lors de l’envoi.");
+      console.error(err);
+    }
   };
+
 
   const updateFormData = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -821,11 +835,25 @@ function ContactRequestModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = () => {
-    // TODO: send data
-    console.log(formData);
-    onClose();
+  const handleSubmit = async () => {
+    try {
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'contact',
+          userType: formData.userType,
+          formData,
+        }),
+      });
+      alert("Demande envoyée !");
+      onClose();
+    } catch (err) {
+      alert("Erreur lors de l’envoi.");
+      console.error(err);
+    }
   };
+
 
   if (!isOpen) return null;
 
