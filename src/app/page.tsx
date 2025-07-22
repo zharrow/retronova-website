@@ -128,6 +128,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
 
 // Hero Section Component
 function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
+  const [contactModalOpen, setContactModalOpen] = useState(false);
   const stats = [
     { number: "Jeux originaux", label: "Développé par nos équipes" },
     { number: "Robuste & cutomisable", label: "Design personnalisable" },
@@ -159,7 +160,7 @@ function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
               Demander mon devis gratuit
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 border-gray-300 hover:bg-gray-50">
+            <Button variant="outline" size="lg" className="text-lg px-8 border-gray-300 hover:bg-gray-50" onClick={() => setContactModalOpen(true)}>
               Demander à être contacter
               <Phone className="ml-2 h-5 w-5" />
             </Button>
@@ -176,6 +177,11 @@ function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
           </div>
         </div>
       </div>
+      {/* ✅ Modale Contact */}
+      <ContactRequestModal
+          isOpen={contactModalOpen}
+          onClose={() => setContactModalOpen(false)}
+      />
     </section>
   );
 }
@@ -833,9 +839,87 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   );
 }
 
+// fomulaire de contact
+function ContactRequestModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    contactMethod: 'email',
+    userType: '',
+  });
+
+  const handleChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = () => {
+    // TODO: send data
+    console.log(formData);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6">
+          <h2 className="text-2xl font-bold mb-4">Demande de contact</h2>
+
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="firstName">Prénom</Label>
+              <Input id="firstName" value={formData.firstName} onChange={(e) => handleChange('firstName', e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="lastName">Nom</Label>
+              <Input id="lastName" value={formData.lastName} onChange={(e) => handleChange('lastName', e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="phone">Téléphone</Label>
+              <Input id="phone" type="tel" value={formData.phone} onChange={(e) => handleChange('phone', e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="contactMethod">Méthode de contact préférée</Label>
+              <select id="contactMethod" value={formData.contactMethod} onChange={(e) => handleChange('contactMethod', e.target.value)} className="w-full p-2 border rounded">
+                <option value="email">Email</option>
+                <option value="telephone">Téléphone</option>
+              </select>
+            </div>
+
+            <div>
+              <Label>Type de client</Label>
+              <div className="flex gap-4 mt-1">
+                <Button variant={formData.userType === 'particulier' ? 'default' : 'outline'} onClick={() => handleChange('userType', 'particulier')}>Particulier</Button>
+                <Button variant={formData.userType === 'professionnel' ? 'default' : 'outline'} onClick={() => handleChange('userType', 'professionnel')}>Professionnel</Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-2 mt-6">
+            <Button variant="outline" onClick={onClose}>Annuler</Button>
+            <Button onClick={handleSubmit} className="bg-gray-900 text-white">Envoyer</Button>
+          </div>
+        </div>
+      </div>
+  );
+}
+
+
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+
 
   const features = [
     {
@@ -1247,7 +1331,7 @@ export default function HomePage() {
                 <Mail className="mr-2 h-5 w-5" />
                 Nous contacter
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white/10">
+              <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white/10" onClick={() => setContactModalOpen(true)}>
                 <Phone className="mr-2 h-5 w-5" />
                 Demander un appel
               </Button>
@@ -1321,6 +1405,11 @@ export default function HomePage() {
       <SignupFlow 
         isOpen={signupModalOpen} 
         onClose={() => setSignupModalOpen(false)} 
+      />
+      {/* ✅ Modale Contact */}
+      <ContactRequestModal
+          isOpen={contactModalOpen}
+          onClose={() => setContactModalOpen(false)}
       />
     </div>
   );
