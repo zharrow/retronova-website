@@ -21,7 +21,6 @@ import {
   ArrowRight,
   X,
   ArrowLeft,
-  CreditCard,
   Home,
   Building2,
   Users,
@@ -131,7 +130,7 @@ function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const stats = [
     { number: "Jeux originaux", label: "Développé par nos équipes" },
-    { number: "Robuste & cutomisable", label: "Design personnalisable" },
+    { number: "Robuste & customisable", label: "Design personnalisable" },
     { number: "100% Francais", label: "Entièrement conçu et hébergé en France" },
     { number: "24h/24", label: "Support technique" }
   ];
@@ -263,7 +262,7 @@ function ParticulierSection({ onSignupClick }: { onSignupClick: () => void }) {
                 <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                   <div>
                     <span className="font-medium text-gray-900">Événementiel</span>
-                    <p className="text-sm text-gray-600">Avec possibilité d'animation</p>
+                    <p className="text-sm text-gray-600">Avec possibilité d&apos;animation</p>
                   </div>
                   <p className="text-sm text-gray-600">À partir de :</p>
                   <span className="text-lg font-bold text-gray-900">149€/Jour</span>
@@ -284,7 +283,7 @@ function ParticulierSection({ onSignupClick }: { onSignupClick: () => void }) {
 }
 
 // Professionnel Section Component
-function ProfessionnelSection() {
+function ProfessionnelSection({ onSignupClick }: { onSignupClick: () => void }) {
   const features = [
     {
       icon: <Building2 className="h-6 w-6" />,
@@ -369,9 +368,13 @@ function ProfessionnelSection() {
                   </div>
                 </div>
               </div>
-              <Button className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white">
+              <Button
+                  className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={onSignupClick}
+              >
                 Demander une étude personnalisée
               </Button>
+
             </div>
 
             <div>
@@ -479,7 +482,7 @@ function Footer() {
         <Separator className="my-8" />
         
         <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600">
-          <p>&copy; 2024 Arcade Connect. Tous droits réservés.</p>
+          <p>&copy; 2025 Retronova Industry. Tous droits réservés.</p>
           <div className="flex space-x-4 mt-4 sm:mt-0">
             <a href="#" className="hover:text-gray-900 transition-colors">Politique de confidentialité</a>
             <a href="#" className="hover:text-gray-900 transition-colors">Conditions d&apos;utilisation</a>
@@ -519,42 +522,6 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     postalCode: '',
     paymentMethod: 'card'
   });
-
-  const services: ServiceOption[] = [
-    {
-      id: 'purchase',
-      title: 'Achat direct',
-      description: 'Votre borne à vie',
-      price: '2 499€',
-      priceNumber: 2499,
-      icon: <ShoppingCart className="h-6 w-6" />,
-      popular: true,
-      features: [
-        "Borne d'arcade complète",
-        "Installation incluse",
-        "Formation utilisateur",
-        "Garantie 3 ans",
-        "Support à vie",
-        "Mises à jour gratuites"
-      ]
-    },
-    {
-      id: 'rental',
-      title: 'Location longue durée',
-      description: 'Engagement 12 mois minimum',
-      price: '149€/mois',
-      priceNumber: 149,
-      icon: <Calendar className="h-6 w-6" />,
-      features: [
-        "Borne d'arcade complète",
-        "Installation incluse",
-        "Maintenance comprise",
-        "Mises à jour automatiques",
-        "Support technique",
-        "Échange possible"
-      ]
-    }
-  ];
 
   const steps = [
     { id: 'service', title: 'Service', completed: currentStep !== 'service' },
@@ -975,6 +942,11 @@ export default function HomePage() {
     setSignupModalOpen(true);
     setMobileMenuOpen(false);
   };
+  const handleProfessionalSignupClick = () => {
+    setSignupModalOpen(true);
+    setMobileMenuOpen(false);
+  };
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -1123,7 +1095,7 @@ export default function HomePage() {
       </section>
 
       <ParticulierSection onSignupClick={handleSignupClick} />
-      <ProfessionnelSection />
+      <ProfessionnelSection onSignupClick={handleProfessionalSignupClick} />
 
       {/* Offre Mise à Disposition Gratuite */}
       <section className="py-20 bg-gray-50">
@@ -1133,7 +1105,7 @@ export default function HomePage() {
               Mise à disposition 100% gratuite
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez notre offre unique de mise à disposition gratuite de bornes d'arcade pour les professionnels
+              Découvrez notre offre unique de mise à disposition gratuite de bornes d&apos;arcade pour les professionnels
             </p>
           </div>
 
@@ -1184,7 +1156,7 @@ export default function HomePage() {
                     Animations événementielles possibles
                   </p>
                   <div className="text-xs text-gray-900 bg-gray-50 px-2 py-1 rounded border border-gray-200">
-                    Jusqu'à 2x/mois
+                    Jusqu&apos;à 2x/mois
                   </div>
                 </CardContent>
               </Card>
@@ -1249,10 +1221,15 @@ export default function HomePage() {
               </div>
 
               <div className="text-center mt-8">
-                <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white">
-                  Candidater à l'offre gratuite
+                <Button
+                    size="lg"
+                    className="bg-gray-900 hover:bg-gray-800 text-white"
+                    onClick={handleProfessionalSignupClick}
+                >
+                  Candidater à l&apos;offre gratuite
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
+
               </div>
             </div>
           </div>
