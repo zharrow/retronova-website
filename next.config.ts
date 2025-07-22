@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
   },
+
+  // Configuration pour Docker
+  output: 'standalone',
+
 };
 
 export default nextConfig;

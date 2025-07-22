@@ -21,7 +21,6 @@ import {
   ArrowRight,
   X,
   ArrowLeft,
-  CreditCard,
   Home,
   Building2,
   Users,
@@ -55,7 +54,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
               <Gamepad2 className="h-6 w-6 text-white" />
             </div>
             <span className="text-2xl font-bold text-gray-900">
-              Arcade Connect
+              Retronova
             </span>
           </div>
           
@@ -80,7 +79,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
               onClick={onSignupClick}
               className="bg-gray-900 hover:bg-gray-800 text-white"
             >
-              Commencer
+              Devis gratuit
             </Button>
           </nav>
 
@@ -116,7 +115,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
                 onClick={onSignupClick}
                 className="w-full mt-4 bg-gray-900 hover:bg-gray-800 text-white"
               >
-                Commencer
+                Devis gratuit
               </Button>
             </nav>
           </div>
@@ -128,10 +127,11 @@ function Header({ mobileMenuOpen, setMobileMenuOpen, onSignupClick }: {
 
 // Hero Section Component
 function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
+  const [contactModalOpen, setContactModalOpen] = useState(false);
   const stats = [
-    { number: "2000+", label: "Jeux disponibles" },
-    { number: "500+", label: "Clients satisfaits" },
-    { number: "98%", label: "Taux de satisfaction" },
+    { number: "Jeux originaux", label: "Développé par nos équipes" },
+    { number: "Robuste & customisable", label: "Design personnalisable" },
+    { number: "100% Francais", label: "Entièrement conçu et hébergé en France" },
     { number: "24h/24", label: "Support technique" }
   ];
 
@@ -140,9 +140,6 @@ function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center max-w-5xl mx-auto">
-          <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm bg-gray-100 text-gray-700 border-gray-200">
-            🎮 Révolution Arcade - Nouvelle Génération
-          </Badge>
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-gray-900">
             L&apos;arcade connectée
             <span className="block text-gray-700">
@@ -159,11 +156,11 @@ function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
               className="text-lg px-8 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={onSignupClick}
             >
-              Commencer maintenant
+              Demander mon devis gratuit
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 border-gray-300 hover:bg-gray-50">
-              Demander une démo
+            <Button variant="outline" size="lg" className="text-lg px-8 border-gray-300 hover:bg-gray-50" onClick={() => setContactModalOpen(true)}>
+              Demander à être contacter
               <Phone className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -179,6 +176,11 @@ function HeroSection({ onSignupClick }: { onSignupClick: () => void }) {
           </div>
         </div>
       </div>
+      {/* ✅ Modale Contact */}
+      <ContactRequestModal
+          isOpen={contactModalOpen}
+          onClose={() => setContactModalOpen(false)}
+      />
     </section>
   );
 }
@@ -259,10 +261,11 @@ function ParticulierSection({ onSignupClick }: { onSignupClick: () => void }) {
                 </div>
                 <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                   <div>
-                    <span className="font-medium text-gray-900">Location longue durée</span>
-                    <p className="text-sm text-gray-600">Engagement 12 mois</p>
+                    <span className="font-medium text-gray-900">Événementiel</span>
+                    <p className="text-sm text-gray-600">Avec possibilité d&apos;animation</p>
                   </div>
-                  <span className="text-lg font-bold text-gray-900">149€/mois</span>
+                  <p className="text-sm text-gray-600">À partir de :</p>
+                  <span className="text-lg font-bold text-gray-900">149€/Jour</span>
                 </div>
               </div>
               <Button 
@@ -280,7 +283,7 @@ function ParticulierSection({ onSignupClick }: { onSignupClick: () => void }) {
 }
 
 // Professionnel Section Component
-function ProfessionnelSection() {
+function ProfessionnelSection({ onSignupClick }: { onSignupClick: () => void }) {
   const features = [
     {
       icon: <Building2 className="h-6 w-6" />,
@@ -317,8 +320,8 @@ function ProfessionnelSection() {
     },
     {
       icon: <Target className="h-6 w-6" />,
-      title: "Centres de Loisirs",
-      description: "Complétez votre offre avec l'arcade nouvelle génération"
+      title: "Espaces de travail & détente",
+      description: "Installez nos bornes dans vos salles de repos, zones de coworking ou espaces collaboratifs pour offrir une pause ludique et conviviale."
     }
   ];
 
@@ -346,8 +349,8 @@ function ProfessionnelSection() {
                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg border border-blue-100">
                   <Target className="h-6 w-6 text-blue-600" />
                   <div>
-                    <span className="font-medium text-gray-900">ROI moyen</span>
-                    <p className="text-sm text-gray-600">+30% de CA en 6 mois</p>
+                    <span className="font-medium text-gray-900">2 offres</span>
+                    <p className="text-sm text-gray-600">mise à disposition ou location longue durée</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg border border-blue-100">
@@ -365,9 +368,13 @@ function ProfessionnelSection() {
                   </div>
                 </div>
               </div>
-              <Button className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white">
+              <Button
+                  className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={onSignupClick}
+              >
                 Demander une étude personnalisée
               </Button>
+
             </div>
 
             <div>
@@ -475,7 +482,7 @@ function Footer() {
         <Separator className="my-8" />
         
         <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600">
-          <p>&copy; 2024 Arcade Connect. Tous droits réservés.</p>
+          <p>&copy; 2025 Retronova Industry. Tous droits réservés.</p>
           <div className="flex space-x-4 mt-4 sm:mt-0">
             <a href="#" className="hover:text-gray-900 transition-colors">Politique de confidentialité</a>
             <a href="#" className="hover:text-gray-900 transition-colors">Conditions d&apos;utilisation</a>
@@ -502,6 +509,8 @@ interface ServiceOption {
 
 function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [currentStep, setCurrentStep] = useState<Step>('service');
+  const [userType, setUserType] = useState<UserType | null>(null);
+  type UserType = 'particulier' | 'professionnel';
   const [selectedService, setSelectedService] = useState<ServiceOption | null>(null);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -514,52 +523,15 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     paymentMethod: 'card'
   });
 
-  const services: ServiceOption[] = [
-    {
-      id: 'purchase',
-      title: 'Achat direct',
-      description: 'Votre borne à vie',
-      price: '2 499€',
-      priceNumber: 2499,
-      icon: <ShoppingCart className="h-6 w-6" />,
-      popular: true,
-      features: [
-        "Borne d'arcade complète",
-        "Installation incluse",
-        "Formation utilisateur",
-        "Garantie 3 ans",
-        "Support à vie",
-        "Mises à jour gratuites"
-      ]
-    },
-    {
-      id: 'rental',
-      title: 'Location longue durée',
-      description: 'Engagement 12 mois minimum',
-      price: '149€/mois',
-      priceNumber: 149,
-      icon: <Calendar className="h-6 w-6" />,
-      features: [
-        "Borne d'arcade complète",
-        "Installation incluse",
-        "Maintenance comprise",
-        "Mises à jour automatiques",
-        "Support technique",
-        "Échange possible"
-      ]
-    }
-  ];
-
   const steps = [
     { id: 'service', title: 'Service', completed: currentStep !== 'service' },
     { id: 'info', title: 'Informations', completed: ['address', 'payment', 'confirmation'].includes(currentStep) },
     { id: 'address', title: 'Adresse', completed: ['payment', 'confirmation'].includes(currentStep) },
-    { id: 'payment', title: 'Paiement', completed: currentStep === 'confirmation' },
     { id: 'confirmation', title: 'Confirmation', completed: false }
   ];
 
   const handleNext = () => {
-    const stepOrder: Step[] = ['service', 'info', 'address', 'payment', 'confirmation'];
+    const stepOrder: Step[] = ['service', 'info', 'address', 'confirmation'];
     const currentIndex = stepOrder.indexOf(currentStep);
     if (currentIndex < stepOrder.length - 1) {
       setCurrentStep(stepOrder[currentIndex + 1]);
@@ -567,18 +539,32 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   };
 
   const handleBack = () => {
-    const stepOrder: Step[] = ['service', 'info', 'address', 'payment', 'confirmation'];
+    const stepOrder: Step[] = ['service', 'info', 'address', 'confirmation'];
     const currentIndex = stepOrder.indexOf(currentStep);
     if (currentIndex > 0) {
       setCurrentStep(stepOrder[currentIndex - 1]);
     }
   };
 
-  const handleFinish = () => {
-    // Redirection vers le backoffice RetroNova
-    window.open('https://www.retronova.fr', '_blank');
-    onClose();
+  const handleFinish = async () => {
+    try {
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'devis',
+          userType,
+          formData,
+        }),
+      });
+      alert("Demande envoyée !");
+      onClose();
+    } catch (err) {
+      alert("Erreur lors de l’envoi.");
+      console.error(err);
+    }
   };
+
 
   const updateFormData = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -631,93 +617,122 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         <div className="p-6">
           {/* Step 1: Service Selection */}
           {currentStep === 'service' && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-gray-900">Choisissez votre formule</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                {services.map((service) => (
-                  <Card 
-                    key={service.id}
-                    className={`cursor-pointer transition-all hover:shadow-lg ${
-                      selectedService?.id === service.id ? 'ring-2 ring-gray-900 shadow-lg' : 'hover:shadow-md'
-                    }`}
-                    onClick={() => setSelectedService(service)}
+              <div>
+                <h3 className="text-xl font-semibold mb-6 text-gray-900">Êtes-vous un professionnel ou un particulier ?</h3>
+                <div className="flex gap-6">
+                  <Button
+                      variant={userType === 'particulier' ? 'default' : 'outline'}
+                      onClick={() => setUserType('particulier')}
                   >
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                          {service.icon}
-                        </div>
-                        {service.popular && (
-                          <Badge className="bg-gray-900 text-white">Populaire</Badge>
+                    Particulier
+                  </Button>
+                  <Button
+                      variant={userType === 'professionnel' ? 'default' : 'outline'}
+                      onClick={() => setUserType('professionnel')}
+                  >
+                    Professionnel
+                  </Button>
+                </div>
+
+                {userType && (
+                    <div className="mt-8">
+                      <h4 className="text-lg font-medium mb-4">Choisissez votre offre</h4>
+                      <div className="flex flex-col gap-4">
+                        {userType === 'particulier' && (
+                            <>
+                              <Button
+                                  variant={selectedService?.id === 'achat' ? 'default' : 'outline'}
+                                  onClick={() =>
+                                      setSelectedService({ id: 'achat', title: 'Achat', description: 'Achat d\'une borne', price: '', priceNumber: 0, icon: <ShoppingCart className="h-5 w-5" />, features: [] })
+                                  }
+                              >
+                                Achat
+                              </Button>
+                              <Button
+                                  variant={selectedService?.id === 'evenement' ? 'default' : 'outline'}
+                                  onClick={() =>
+                                      setSelectedService({ id: 'evenement', title: 'Événementiel', description: 'Location pour événement', price: '', priceNumber: 0, icon: <PartyPopper className="h-5 w-5" />, features: [] })
+                                  }
+                              >
+                                Événementiel
+                              </Button>
+                            </>
+                        )}
+                        {userType === 'professionnel' && (
+                            <>
+                              <Button
+                                  variant={selectedService?.id === 'miseadisposition' ? 'default' : 'outline'}
+                                  onClick={() =>
+                                      setSelectedService({ id: 'miseadisposition', title: 'Mise à disposition gratuite', description: 'Offre gratuite pour pros', price: '', priceNumber: 0, icon: <Shield className="h-5 w-5" />, features: [] })
+                                  }
+                              >
+                                Mise à disposition gratuite
+                              </Button>
+                              <Button
+                                  variant={selectedService?.id === 'locationlongue' ? 'default' : 'outline'}
+                                  onClick={() =>
+                                      setSelectedService({ id: 'locationlongue', title: 'Location longue durée', description: 'Location pro', price: '', priceNumber: 0, icon: <Calendar className="h-5 w-5" />, features: [] })
+                                  }
+                              >
+                                Location longue durée
+                              </Button>
+                            </>
                         )}
                       </div>
-                      <CardTitle className="text-xl">{service.title}</CardTitle>
-                      <CardDescription>{service.description}</CardDescription>
-                      <div className="text-3xl font-bold text-gray-900 mt-2">
-                        {service.price}
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-2">
-                        {service.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-center text-sm">
-                            <CheckCircle className="w-4 h-4 text-green-600 mr-2 shrink-0" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                ))}
+                    </div>
+                )}
               </div>
-            </div>
           )}
+
 
           {/* Step 2: Personal Information */}
           {currentStep === 'info' && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-gray-900">Vos informations personnelles</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <Label htmlFor="firstName">Prénom *</Label>
-                  <Input
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={(e) => updateFormData('firstName', e.target.value)}
-                    placeholder="Votre prénom"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="lastName">Nom *</Label>
-                  <Input
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={(e) => updateFormData('lastName', e.target.value)}
-                    placeholder="Votre nom"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="email">Email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => updateFormData('email', e.target.value)}
-                    placeholder="votre@email.com"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="phone">Téléphone *</Label>
-                  <Input
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => updateFormData('phone', e.target.value)}
-                    placeholder="06 12 34 56 78"
-                  />
+              <div>
+                <h3 className="text-xl font-semibold mb-6 text-gray-900">Informations</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {userType === 'professionnel' && (
+                      <>
+                        <div>
+                          <Label htmlFor="companyName">Nom de l’établissement *</Label>
+                          <Input id="companyName" onChange={(e) => updateFormData('companyName', e.target.value)} placeholder="Nom de votre établissement" />
+                        </div>
+                        <div>
+                          <Label htmlFor="activity">Activité de l’entreprise *</Label>
+                          <Input id="activity" onChange={(e) => updateFormData('activity', e.target.value)} placeholder="Ex: Bar, Hôtel..." />
+                        </div>
+                      </>
+                  )}
+                  <div>
+                    <Label htmlFor="firstName">Prénom *</Label>
+                    <Input id="firstName" onChange={(e) => updateFormData('firstName', e.target.value)} />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName">Nom *</Label>
+                    <Input id="lastName" onChange={(e) => updateFormData('lastName', e.target.value)} />
+                  </div>
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input id="email" type="email" onChange={(e) => updateFormData('email', e.target.value)} />
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Téléphone *</Label>
+                    <Input id="phone" onChange={(e) => updateFormData('phone', e.target.value)} />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="city">Ville *</Label>
+                    <Input id="city" onChange={(e) => updateFormData('city', e.target.value)} />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="contactMethod">Préférez-vous être contacté par *</Label>
+                    <select id="contactMethod" onChange={(e) => updateFormData('contactMethod', e.target.value)} className="w-full p-2 border rounded">
+                      <option value="email">Email</option>
+                      <option value="telephone">Téléphone</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
           )}
+
 
           {/* Step 3: Address */}
           {currentStep === 'address' && (
@@ -756,77 +771,16 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               </div>
             </div>
           )}
-
-          {/* Step 4: Payment */}
-          {currentStep === 'payment' && (
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-gray-900">Méthode de paiement</h3>
-              <div className="space-y-6">
-                {/* Payment Summary */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-semibold mb-2">Récapitulatif de votre commande</h4>
-                  <div className="flex justify-between items-center">
-                    <span>{selectedService?.title}</span>
-                    <span className="font-semibold">{selectedService?.price}</span>
-                  </div>
-                  <div className="flex justify-between items-center mt-2 pt-2 border-t border-gray-200">
-                    <span className="font-semibold">Total</span>
-                    <span className="font-bold text-lg">{selectedService?.price}</span>
-                  </div>
-                </div>
-
-                {/* Payment Options */}
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                    <input
-                      type="radio"
-                      id="card"
-                      name="payment"
-                      value="card"
-                      checked={formData.paymentMethod === 'card'}
-                      onChange={(e) => updateFormData('paymentMethod', e.target.value)}
-                      className="text-gray-900"
-                    />
-                    <CreditCard className="h-5 w-5 text-gray-600" />
-                    <label htmlFor="card" className="flex-1 cursor-pointer">
-                      <div className="font-medium">Carte bancaire</div>
-                      <div className="text-sm text-gray-600">Paiement sécurisé par Stripe</div>
-                    </label>
-                  </div>
-                  
-                  {selectedService?.id === 'rental' && (
-                    <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                      <input
-                        type="radio"
-                        id="sepa"
-                        name="payment"
-                        value="sepa"
-                        checked={formData.paymentMethod === 'sepa'}
-                        onChange={(e) => updateFormData('paymentMethod', e.target.value)}
-                        className="text-gray-900"
-                      />
-                      <div className="h-5 w-5 text-gray-600 flex items-center justify-center font-bold text-xs">€</div>
-                      <label htmlFor="sepa" className="flex-1 cursor-pointer">
-                        <div className="font-medium">Prélèvement SEPA</div>
-                        <div className="text-sm text-gray-600">Pour les abonnements mensuels</div>
-                      </label>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Step 5: Confirmation */}
           {currentStep === 'confirmation' && (
             <div className="text-center py-8">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-900">Inscription terminée !</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-gray-900">Devis terminer !</h3>
               <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                Votre demande a été envoyée avec succès. Vous allez être redirigé vers votre espace client 
-                pour finaliser votre commande et suivre l&apos;installation.
+                Votre demande de devis est prête à être envoyée.
+                Merci pour votre confiance !
               </p>
               <div className="bg-gray-50 rounded-lg p-4 mb-6">
                 <h4 className="font-semibold mb-2">Prochaines étapes :</h4>
@@ -857,7 +811,7 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
             disabled={currentStep === 'service' && !selectedService}
             className="bg-gray-900 hover:bg-gray-800 text-white"
           >
-            {currentStep === 'confirmation' ? 'Accéder à mon espace' : 'Continuer'}
+            {currentStep === 'confirmation' ? 'Enovoyer ma demande' : 'Continuer'}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
@@ -866,9 +820,101 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   );
 }
 
+// fomulaire de contact
+function ContactRequestModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    contactMethod: 'email',
+    userType: '',
+  });
+
+  const handleChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'contact',
+          userType: formData.userType,
+          formData,
+        }),
+      });
+      alert("Demande envoyée !");
+      onClose();
+    } catch (err) {
+      alert("Erreur lors de l’envoi.");
+      console.error(err);
+    }
+  };
+
+
+  if (!isOpen) return null;
+
+  return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6">
+          <h2 className="text-2xl font-bold mb-4">Demande de contact</h2>
+
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="firstName">Prénom</Label>
+              <Input id="firstName" value={formData.firstName} onChange={(e) => handleChange('firstName', e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="lastName">Nom</Label>
+              <Input id="lastName" value={formData.lastName} onChange={(e) => handleChange('lastName', e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="phone">Téléphone</Label>
+              <Input id="phone" type="tel" value={formData.phone} onChange={(e) => handleChange('phone', e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="contactMethod">Méthode de contact préférée</Label>
+              <select id="contactMethod" value={formData.contactMethod} onChange={(e) => handleChange('contactMethod', e.target.value)} className="w-full p-2 border rounded">
+                <option value="email">Email</option>
+                <option value="telephone">Téléphone</option>
+              </select>
+            </div>
+
+            <div>
+              <Label>Type de client</Label>
+              <div className="flex gap-4 mt-1">
+                <Button variant={formData.userType === 'particulier' ? 'default' : 'outline'} onClick={() => handleChange('userType', 'particulier')}>Particulier</Button>
+                <Button variant={formData.userType === 'professionnel' ? 'default' : 'outline'} onClick={() => handleChange('userType', 'professionnel')}>Professionnel</Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-2 mt-6">
+            <Button variant="outline" onClick={onClose}>Annuler</Button>
+            <Button onClick={handleSubmit} className="bg-gray-900 text-white">Envoyer</Button>
+          </div>
+        </div>
+      </div>
+  );
+}
+
+
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+
 
   const features = [
     {
@@ -883,7 +929,7 @@ export default function HomePage() {
     },
     {
       icon: <Gamepad2 className="h-8 w-8" />,
-      title: "2000+ Jeux",
+      title: "+2 jeux  par mois ",
       description: "Catalogue évolutif mis à jour régulièrement avec les dernières sorties"
     },
     {
@@ -905,8 +951,8 @@ export default function HomePage() {
     {
       icon: <Calendar className="h-6 w-6" />,
       title: "Location",
-      description: "Location flexible de 1 mois à 2 ans",
-      price: "À partir de 149€/mois",
+      description: "Location flexible de 12 mois minimum",
+      price: "À partir de 299€/mois",
       features: ["Maintenance incluse", "Catalogue évolutif", "Flexible", "Pas d'investissement"],
       badge: "Flexible"
     },
@@ -914,30 +960,9 @@ export default function HomePage() {
       icon: <PartyPopper className="h-6 w-6" />,
       title: "Événement",
       description: "Location ponctuelle avec livraison",
-      price: "À partir de 199€/jour",
+      price: "À partir de 149€/jour",
       features: ["Livraison incluse", "Installation rapide", "Animation possible", "Support événement"],
       badge: "Événement"
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "Marc D.",
-      role: "Propriétaire de bar",
-      content: "Nos clients adorent ! Le chiffre d'affaires a augmenté de 30% depuis l'installation.",
-      rating: 5
-    },
-    {
-      name: "Sarah M.",
-      role: "Particulier",
-      content: "Parfait pour les soirées en famille. La qualité est exceptionnelle !",
-      rating: 5
-    },
-    {
-      name: "Thomas L.",
-      role: "Gérant de restaurant",
-      content: "Installation rapide, interface intuitive. Je recommande vivement !",
-      rating: 5
     }
   ];
 
@@ -945,6 +970,11 @@ export default function HomePage() {
     setSignupModalOpen(true);
     setMobileMenuOpen(false);
   };
+  const handleProfessionalSignupClick = () => {
+    setSignupModalOpen(true);
+    setMobileMenuOpen(false);
+  };
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -1093,40 +1123,147 @@ export default function HomePage() {
       </section>
 
       <ParticulierSection onSignupClick={handleSignupClick} />
-      <ProfessionnelSection />
+      <ProfessionnelSection onSignupClick={handleProfessionalSignupClick} />
 
-      {/* Testimonials */}
+      {/* Offre Mise à Disposition Gratuite */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900">
-              Ce que disent nos clients
+              Mise à disposition 100% gratuite
             </h2>
-            <p className="text-xl text-gray-600">
-              Plus de 500 clients nous font confiance
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Découvrez notre offre unique de mise à disposition gratuite de bornes d&apos;arcade pour les professionnels
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow border-gray-200">
+          <div className="max-w-6xl mx-auto">
+
+            {/* Détails de l'offre */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              <Card className="text-center hover:shadow-lg transition-all border-gray-200">
                 <CardHeader>
-                  <div className="flex items-center space-x-1 mb-3">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-blue-200">
+                    <Settings className="h-6 w-6 text-gray-900" />
                   </div>
-                  <CardTitle className="text-lg text-gray-900">{testimonial.name}</CardTitle>
-                  <CardDescription className="text-gray-600">{testimonial.role}</CardDescription>
+                  <CardTitle className="text-lg text-gray-900">Personnalisable</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 italic">&quot;{testimonial.content}&quot;</p>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Design et contenu adaptés à votre établissement
+                  </p>
+                  <div className="text-xs text-gray-900 bg-gray-50 px-2 py-1 rounded border border-gray-200">
+                    Engagement 12 mois
+                  </div>
                 </CardContent>
               </Card>
-            ))}
+
+              <Card className="text-center hover:shadow-lg transition-all border-gray-200">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-purple-200">
+                    <Shield className="h-6 w-6 text-gray-900" />
+                  </div>
+                  <CardTitle className="text-lg text-gray-900">Sous validation</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Étude personnalisée de votre projet et validation selon critères
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-all border-gray-200">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-orange-200">
+                    <PartyPopper className="h-6 w-6 text-gray-900" />
+                  </div>
+                  <CardTitle className="text-lg text-gray-900">Animation incluse</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Animations événementielles possibles
+                  </p>
+                  <div className="text-xs text-gray-900 bg-gray-50 px-2 py-1 rounded border border-gray-200">
+                    Jusqu&apos;à 2x/mois
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-all border-gray-200">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mx-auto mb-3 border border-gray-200">
+                    <Headphones className="h-6 w-6 text-gray-600" />
+                  </div>
+                  <CardTitle className="text-lg text-gray-900">Support complet</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Installation, formation, maintenance et assistance technique
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Processus de validation */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+              <h4 className="text-2xl font-semibold text-center mb-8 text-gray-900">
+                Comment bénéficier de cette offre ?
+              </h4>
+              <div className="grid md:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                    1
+                  </div>
+                  <h5 className="font-semibold mb-2 text-gray-900">Candidature</h5>
+                  <p className="text-sm text-gray-600">
+                    Soumettez votre demande avec les détails de votre établissement
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                    2
+                  </div>
+                  <h5 className="font-semibold mb-2 text-gray-900">Évaluation</h5>
+                  <p className="text-sm text-gray-600">
+                    Analyse de votre projet selon nos critères de sélection
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                    3
+                  </div>
+                  <h5 className="font-semibold mb-2 text-gray-900">Validation</h5>
+                  <p className="text-sm text-gray-600">
+                    Réponse sous 5 jours ouvrés avec les conditions
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                    4
+                  </div>
+                  <h5 className="font-semibold mb-2 text-gray-900">Installation</h5>
+                  <p className="text-sm text-gray-600">
+                    Installation et formation dans votre établissement
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-center mt-8">
+                <Button
+                    size="lg"
+                    className="bg-gray-900 hover:bg-gray-800 text-white"
+                    onClick={handleProfessionalSignupClick}
+                >
+                  Candidater à l&apos;offre gratuite
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-white">
@@ -1199,7 +1336,7 @@ export default function HomePage() {
                 <Mail className="mr-2 h-5 w-5" />
                 Nous contacter
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white/10">
+              <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white/10" onClick={() => setContactModalOpen(true)}>
                 <Phone className="mr-2 h-5 w-5" />
                 Demander un appel
               </Button>
@@ -1230,8 +1367,8 @@ export default function HomePage() {
                   <CardTitle className="text-gray-900">Téléphone</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 mb-3">Du lundi au vendredi<br />9h - 18h</p>
-                  <p className="font-semibold text-gray-900">01 23 45 67 89</p>
+                  <p className="text-gray-600 mb-3">Du lundi au vendredi<br />9h - 00h</p>
+                  <p className="font-semibold text-gray-900">07 44 72 09 51</p>
                 </CardContent>
               </Card>
 
@@ -1244,7 +1381,7 @@ export default function HomePage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 mb-3">Réponse sous 2h<br />en heures ouvrées</p>
-                  <p className="font-semibold text-gray-900">contact@arcade-connect.fr</p>
+                  <p className="font-semibold text-gray-900">contact@retronova.fr</p>
                 </CardContent>
               </Card>
 
@@ -1253,12 +1390,12 @@ export default function HomePage() {
                   <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <MapPin className="h-6 w-6 text-gray-700" />
                   </div>
-                  <CardTitle className="text-gray-900">Showroom</CardTitle>
+                  <CardTitle className="text-gray-900">Trouver une borne</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 mb-3">Sur rendez-vous<br />Paris & Lyon</p>
+                  <p className="text-gray-600 mb-3">Grâce à notre carte interactive, trouvez nos bornes pour découvrir le produit.</p>
                   <Button variant="outline" size="sm" className="border-gray-300 hover:bg-gray-50">
-                    Prendre RDV
+                    ouvrir la carte
                   </Button>
                 </CardContent>
               </Card>
@@ -1273,6 +1410,11 @@ export default function HomePage() {
       <SignupFlow 
         isOpen={signupModalOpen} 
         onClose={() => setSignupModalOpen(false)} 
+      />
+      {/* ✅ Modale Contact */}
+      <ContactRequestModal
+          isOpen={contactModalOpen}
+          onClose={() => setContactModalOpen(false)}
       />
     </div>
   );
