@@ -623,12 +623,14 @@ function SignupFlow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                   <Button
                       variant={userType === 'particulier' ? 'default' : 'outline'}
                       onClick={() => setUserType('particulier')}
+                      className="bg-gray-900 hover:bg-gray-800 text-white"
                   >
                     Particulier
                   </Button>
                   <Button
                       variant={userType === 'professionnel' ? 'default' : 'outline'}
                       onClick={() => setUserType('professionnel')}
+                      className="bg-gray-900 hover:bg-gray-800 text-white"
                   >
                     Professionnel
                   </Button>
@@ -894,8 +896,15 @@ function ContactRequestModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
             <div>
               <Label>Type de client</Label>
               <div className="flex gap-4 mt-1">
-                <Button variant={formData.userType === 'particulier' ? 'default' : 'outline'} onClick={() => handleChange('userType', 'particulier')}>Particulier</Button>
-                <Button variant={formData.userType === 'professionnel' ? 'default' : 'outline'} onClick={() => handleChange('userType', 'professionnel')}>Professionnel</Button>
+                <Button variant={formData.userType === 'particulier' ? 'default' : 'outline'}
+                        onClick={() => handleChange('userType', 'particulier')}
+                        className="bg-gray-900 hover:bg-gray-800 text-white">
+                  Particulier
+                </Button>
+                <Button variant={formData.userType === 'professionnel' ? 'default' : 'outline'}
+                        onClick={() => handleChange('userType', 'professionnel')}
+                        className="bg-gray-900 hover:bg-gray-800 text-white"
+                >Professionnel</Button>
               </div>
             </div>
           </div>
